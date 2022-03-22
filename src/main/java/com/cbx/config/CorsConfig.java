@@ -1,4 +1,4 @@
-package com.foodtok.config;
+package com.cbx.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

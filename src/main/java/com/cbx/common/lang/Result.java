@@ -1,4 +1,4 @@
-package com.foodtok.common.lang;
+package com.cbx.common.lang;
 
 import lombok.Data;
 
