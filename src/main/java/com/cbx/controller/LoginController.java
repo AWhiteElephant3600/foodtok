@@ -55,6 +55,6 @@ public class LoginController extends BaseController{
 
         userService.save(newUser);
 
-        return Result.succ("注册成功");
+        return Result.succ("success");
     }
 }
