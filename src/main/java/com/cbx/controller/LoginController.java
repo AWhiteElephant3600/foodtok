@@ -25,8 +25,6 @@ import java.util.Date;
 @RestController
 public class LoginController extends BaseController{
 
-    @Autowired
-    UserService userService;
 
     @PostMapping("/login")
     public Result login(@Validated @RequestBody  User user){
@@ -38,7 +36,7 @@ public class LoginController extends BaseController{
         }
 
         return Result.succ(MapUtil.builder()
-                .put("username", user.getUsername())
+                .put("user", temp)
                 .map()
         );
     }
