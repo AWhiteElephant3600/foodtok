@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cbx.mapper.FooddataMapper">
+
+    <update id="update" parameterType="long">
+        update fooddata set fooddata.likenum= fooddata.likenum + 1 where fooddata.id = #{id};
+    </update>
+
+    <update id="downlikenum">
+        update fooddata set fooddata.likenum= fooddata.likenum - 1 where fooddata.id = #{id};
+    </update>
+
+    <insert id="updatecollect" parameterType="com.cbx.entity.Fooddata">
+        insert into collect(`user_id`,`fooddata_id`) values(#{userid},#{id});
+    </insert>
+
+    <delete id="deletelike" parameterType="com.cbx.entity.Fooddata">
+        delete from userlikefood where user_id = #{userid} and fooddata_id = #{id}
+    </delete>
+
+    <delete id="deletecollect" parameterType="com.cbx.entity.Fooddata">
+        delete from collect where user_id = #{userid} and fooddata_id = #{id}
+    </delete>
+
+    <insert id="updatelikefood" parameterType="com.cbx.entity.Fooddata">
+        insert into userlikefood(`user_id`,`fooddata_id`) values(#{userid},#{id});
+    </insert>
+
+
+    <select id="selectUserlike" parameterType="long" resultType="com.cbx.entity.Fooddata">
+        SELECT fooddata.foodname,fooddata.introduce,fooddata.foodbigimg,fooddata.likenum,fooddata.id FROM `userlikefood`, `user`,`fooddata` where user_id = user.id and fooddata.id = userlikefood.fooddata_id and user.id = #{id}
+    </select>
+
+    <select id="mygetById" resultType="com.cbx.entity.Fooddata" parameterType="long">
+        select * from fooddata where id = #{id};
+    </select>
+
+    <select id="selectUsercollect" resultType="com.cbx.entity.Fooddata" parameterType="long">
+        SELECT fooddata.foodname,fooddata.introduce,fooddata.foodbigimg,fooddata.likenum,fooddata.id FROM `collect`, `user`,`fooddata` where user_id = user.id and fooddata.id = collect.fooddata_id and user.id = #{id}
+    </select>
+</mapper>
