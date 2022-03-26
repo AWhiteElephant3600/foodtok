@@ -1,16 +1,16 @@
 package com.cbx.controller;
 
 
+import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cbx.common.lang.Result;
 import com.cbx.entity.Fooddata;
 import com.cbx.entity.User;
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -94,7 +94,83 @@ public class FooddataController extends BaseController {
         return Result.succ(null);
     }
 
+    @GetMapping("/map")
+    public Result map(){
+        List<Object> list1 = fooddataMapper.selectObjs(new QueryWrapper<Fooddata>()
+                .select("foodname")
+                .eq("area","华北")
+                .orderByDesc("likenum")
+                .last("limit 2"));
+        List<Object> id1 = fooddataMapper.selectObjs(new QueryWrapper<Fooddata>()
+                .select("id")
+                .eq("area","华北")
+                .orderByDesc("likenum")
+                .last("limit 2"));
+        List<Object> list2 = fooddataMapper.selectObjs(new QueryWrapper<Fooddata>()
+                .select("foodname")
+                .eq("area","华南")
+                .orderByDesc("likenum")
+                .last("limit 2"));
+        List<Object> id2 = fooddataMapper.selectObjs(new QueryWrapper<Fooddata>()
+                .select("id")
+                .eq("area","华南")
+                .orderByDesc("likenum")
+                .last("limit 2"));
+        List<Object> list3 = fooddataMapper.selectObjs(new QueryWrapper<Fooddata>()
+                .select("foodname")
+                .eq("area","华中")
+                .orderByDesc("likenum")
+                .last("limit 2"));
+        List<Object> id3 = fooddataMapper.selectObjs(new QueryWrapper<Fooddata>()
+                .select("id")
+                .eq("area","华中")
+                .orderByDesc("likenum")
+                .last("limit 2"));
+        List<Object> list4 = fooddataMapper.selectObjs(new QueryWrapper<Fooddata>()
+                .select("foodname")
+                .eq("area","西部")
+                .orderByDesc("likenum")
+                .last("limit 2"));
+        List<Object> id4 = fooddataMapper.selectObjs(new QueryWrapper<Fooddata>()
+                .select("id")
+                .eq("area","西部")
+                .orderByDesc("likenum")
+                .last("limit 2"));
+        List<Object> list5 = fooddataMapper.selectObjs(new QueryWrapper<Fooddata>()
+                .select("foodname")
+                .eq("area","华东")
+                .orderByDesc("likenum")
+                .last("limit 2"));
+        List<Object> id5 = fooddataMapper.selectObjs(new QueryWrapper<Fooddata>()
+                .select("id")
+                .eq("area","华东")
+                .orderByDesc("likenum")
+                .last("limit 2"));
+        int count1 = fooddataService.count(new QueryWrapper<Fooddata>().eq("area", "华北"));
+        int count2 = fooddataService.count(new QueryWrapper<Fooddata>().eq("area", "华南"));
+        int count3 = fooddataService.count(new QueryWrapper<Fooddata>().eq("area", "华中"));
+        int count4 = fooddataService.count(new QueryWrapper<Fooddata>().eq("area", "西部"));
+        int count5 = fooddataService.count(new QueryWrapper<Fooddata>().eq("area", "华东"));
 
+        return Result.succ(MapUtil.builder()
+                .put("HBid",id1)
+                .put("HNid",id2)
+                .put("HZid",id3)
+                .put("XBid",id4)
+                .put("HDid",id5)
+                .put("HBcount", count1)
+                .put("HNcount", count2)
+                .put("HZcount", count3)
+                .put("XBcount", count4)
+                .put("HDcount", count5)
+                .put("HBdata", list1)
+                .put("HNdata", list2)
+                .put("HZdata", list3)
+                .put("XBdata", list4)
+                .put("HDdata", list5)
+                .map()
+        );
+    }
 
 
 }
